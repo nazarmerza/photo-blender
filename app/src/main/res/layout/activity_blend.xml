@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:background="@color/background_screen">
+
+    <FrameLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <ImageView
+            android:id="@+id/output_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@android:color/transparent" />
+
+        <com.nm.blenderapp.ZoomPanImageView
+            android:id="@+id/bottom_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:adjustViewBounds="true"
+            android:alpha="0.7"
+            android:src="@drawable/ic_imageview_placeholder" />
+
+        <com.nm.blenderapp.ZoomPanImageView
+            android:id="@+id/top_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:adjustViewBounds="true"
+            android:alpha="0.7"
+            android:src="@drawable/ic_imageview_placeholder" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_bar"
+        style="@style/MenuBarStyle"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:id="@+id/back_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_back"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blend_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_blend"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blend"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/undo_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_undo"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Undo"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/next_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_next"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

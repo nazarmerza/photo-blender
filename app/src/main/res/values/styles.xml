@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseScreenLayout" parent="Theme.BlenderPro">
+        <item name="android:background">@color/background_screen</item>
+    </style>
+
+    <style name="ImageContainerStyle">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="FullWeightImageView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="MenuBarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/menu_bar_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingBottom">@dimen/menu_bar_padding_bottom</item>
+        <item name="android:paddingHorizontal">@dimen/menu_bar_padding_horizontal</item>
+        <item name="android:background">@color/menu_bar_background</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="MenuImageButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:tint">@color/menu_icon_tint</item>
+    </style>
+
+    <style name="MenuButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="MenuIconStyle">
+        <item name="android:layout_width">@dimen/menu_icon_size</item>
+        <item name="android:layout_height">@dimen/menu_icon_size</item>
+        <item name="android:tint">@color/menu_icon_tint</item>
+    </style>
+
+    <style name="MenuTextStyle">
+        <item name="android:textColor">@color/menu_text_color</item>
+        <item name="android:textSize">@dimen/menu_text_size</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+
+</resources>

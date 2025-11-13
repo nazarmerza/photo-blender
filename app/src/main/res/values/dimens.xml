@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="menu_bar_height">120dp</dimen>
+    <dimen name="menu_bar_padding_bottom">50dp</dimen>
+    <dimen name="menu_icon_size">24dp</dimen>
+    <dimen name="menu_icon_side_size">40dp</dimen>
+    <dimen name="menu_text_size">12sp</dimen>
+    <dimen name="menu_bar_padding_horizontal">16dp</dimen>
+
+</resources>

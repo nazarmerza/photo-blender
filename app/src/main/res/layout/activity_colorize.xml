@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_screen">
+
+    <!-- Image Editing Canvas with Right Toolbar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Main image area -->
+        <ImageView
+            android:id="@+id/main_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:contentDescription="Main Image"
+            android:scaleType="fitCenter" />
+
+        <!-- Right-side vertical toolbar -->
+        <LinearLayout
+            android:id="@+id/edit_tool_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:padding="8dp">
+
+
+            <ImageView
+                android:id="@+id/btn_noise"
+                android:layout_width="@dimen/menu_icon_side_size"
+                android:layout_height="@dimen/menu_icon_side_size"
+                android:layout_marginBottom="50dp"
+                android:src="@drawable/ic_noise"
+                app:tint="@color/menu_icon_tint"
+                android:clickable="true"
+                android:contentDescription="Add Noise" />
+
+            <ImageView
+                android:id="@+id/btn_denoise"
+                android:layout_width="@dimen/menu_icon_side_size"
+                android:layout_height="@dimen/menu_icon_side_size"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_undo"
+                app:tint="@color/menu_icon_tint"
+                android:clickable="true"
+                android:contentDescription="Denoise" />
+
+            <!-- Add more tools here as needed -->
+        </LinearLayout>
+    </RelativeLayout>
+
+    <!-- Bottom Action Bar -->
+    <LinearLayout
+        android:id="@+id/menu_bar"
+        style="@style/MenuBarStyle"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:id="@+id/back_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_back"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/picker_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_blend"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/undo_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_undo"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Undo"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/save_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_save"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

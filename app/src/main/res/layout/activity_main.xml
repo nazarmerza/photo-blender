@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_screen">
+
+    <LinearLayout
+        android:id="@+id/image_container"
+        style="@style/ImageContainerStyle">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            style="@style/FullWeightImageView" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            style="@style/FullWeightImageView" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_bar"
+        style="@style/MenuBarStyle">
+
+        <LinearLayout
+            android:id="@+id/btn_photo1"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_image"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Pic"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_photo2"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_image"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bottom Pic"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/btn_usage"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_info"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How to"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_next"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_next"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

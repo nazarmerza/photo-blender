@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_screen">
+
+    <!-- Scrollable Text Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/usageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:autoLink="web"
+            android:textColor="#000000"
+            android:textIsSelectable="true"
+            android:text="Loading..." />
+    </ScrollView>
+
+    <!-- Bottom Action Bar (Back Only) -->
+    <LinearLayout
+        android:id="@+id/menu_bar"
+        style="@style/MenuBarStyle"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:id="@+id/back_button"
+            style="@style/MenuButtonStyle">
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/ic_back"
+                app:tint="@color/menu_icon_tint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back"
+                style="@style/MenuTextStyle" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
