@@ -3,13 +3,7 @@
 #include <android/bitmap.h>
 #include <cstdint>
 
-#include <jni.h>
-#include <android/bitmap.h>
-#include <cstdint>
 
-#include <jni.h>
-#include <android/bitmap.h>
-#include <cstdint>
 
 extern "C"
 JNIEXPORT void JNICALL
@@ -431,3 +425,102 @@ Java_com_nm_blenderapp_ColorizeActivity_addNoiseNative(
 
     AndroidBitmap_unlockPixels(env, bitmap);
 }
+
+static inline float clampf(float v) {
+    return v < 0.f ? 0.f : (v > 1.f ? 1.f : v);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_nm_blenderapp_ColorizeActivity_colorize(
+        JNIEnv *env,
+        jclass /*clazz*/,
+        jobject bitmapSrc,
+        jobject bitmapDst,
+        jint color) {
+
+    AndroidBitmapInfo srcInfo, dstInfo;
+    void *srcPixels = nullptr;
+    void *dstPixels = nullptr;
+
+    if (AndroidBitmap_getInfo(env, bitmapSrc, &srcInfo) != ANDROID_BITMAP_RESULT_SUCCESS ||
+        AndroidBitmap_getInfo(env, bitmapDst, &dstInfo) != ANDROID_BITMAP_RESULT_SUCCESS) {
+        return;
+    }
+
+    if (srcInfo.format != ANDROID_BITMAP_FORMAT_RGBA_8888 ||
+        dstInfo.format != ANDROID_BITMAP_FORMAT_RGBA_8888) {
+        return;
+    }
+
+    if (AndroidBitmap_lockPixels(env, bitmapSrc, &srcPixels) != ANDROID_BITMAP_RESULT_SUCCESS ||
+        AndroidBitmap_lockPixels(env, bitmapDst, &dstPixels) != ANDROID_BITMAP_RESULT_SUCCESS) {
+        return;
+    }
+
+    // ---- Extract picker color (ARGB int from Java) ----
+    float r = ((color >> 16) & 0xFF) / 255.f;
+    float g = ((color >> 8) & 0xFF) / 255.f;
+    float b = (color & 0xFF) / 255.f;
+
+    // Convert picker RGB -> HSV
+    float maxv = fmaxf(r, fmaxf(g, b));
+    float minv = fminf(r, fminf(g, b));
+    float delta = maxv - minv;
+
+    float hue = 0.f;
+    float sat = (maxv == 0.f) ? 0.f : (delta / maxv);
+
+    if (delta > 0.f) {
+        if (maxv == r) hue = 60.f * fmodf(((g - b) / delta), 6.f);
+        else if (maxv == g) hue = 60.f * (((b - r) / delta) + 2.f);
+        else hue = 60.f * (((r - g) / delta) + 4.f);
+        if (hue < 0.f) hue += 360.f;
+    }
+
+    const int width = srcInfo.width;
+    const int height = srcInfo.height;
+
+    for (int y = 0; y < height; y++) {
+        uint8_t *srcRow = (uint8_t *) srcPixels + y * srcInfo.stride;
+        uint8_t *dstRow = (uint8_t *) dstPixels + y * dstInfo.stride;
+
+        for (int x = 0; x < width; x++) {
+
+            uint8_t *sp = srcRow + x * 4;
+
+            // Memory order: [B, G, R, A]
+            float bF = sp[0] / 255.f;
+            float gF = sp[1] / 255.f;
+            float rF = sp[2] / 255.f;
+
+            // ---- Luminance (Photoshop-style) ----
+            float lum = 0.299f * rF + 0.587f * gF + 0.114f * bF;
+
+            // ---- Apply color (Color blend mode) ----
+            float C = lum * sat;
+            float X = C * (1.f - fabsf(fmodf(hue / 60.f, 2.f) - 1.f));
+            float m = lum - C;
+
+            float r1, g1, b1;
+            if (hue < 60)      { r1 = C; g1 = X; b1 = 0; }
+            else if (hue < 120){ r1 = X; g1 = C; b1 = 0; }
+            else if (hue < 180){ r1 = 0; g1 = C; b1 = X; }
+            else if (hue < 240){ r1 = 0; g1 = X; b1 = C; }
+            else if (hue < 300){ r1 = X; g1 = 0; b1 = C; }
+            else               { r1 = C; g1 = 0; b1 = X; }
+
+            uint8_t *dp = dstRow + x * 4;
+            dp[0] = (uint8_t) (clampf(r1 + m) * 255.f);
+            dp[1] = (uint8_t) (clampf(g1 + m) * 255.f);
+            dp[2] = (uint8_t) (clampf(b1 + m) * 255.f);
+            dp[3] = sp[3]; // preserve alpha
+        }
+    }
+
+    AndroidBitmap_unlockPixels(env, bitmapSrc);
+    AndroidBitmap_unlockPixels(env, bitmapDst);
+}
+
+
+

@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.nm.blenderapp.colorpicker.ColorPickerDialog;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -33,6 +35,8 @@ public class ColorizeActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public static native void addNoiseNative(Bitmap bitmap, int noiseLevel);
+    public static native void colorize(Bitmap bitmap, Bitmap newBitmap, int color);
+
 
 
     private ImageView imageView;
@@ -83,6 +87,7 @@ public class ColorizeActivity extends AppCompatActivity implements View.OnClickL
             finish();
         } else if (viewId == R.id.picker_button) {
             openColorPickerDialogue();
+//            showColorPickerDialogDemo();
 
         } else if (viewId == R.id.undo_button) {
             undoColorization();
@@ -102,6 +107,21 @@ public class ColorizeActivity extends AppCompatActivity implements View.OnClickL
         } else if (viewId == R.id.btn_denoise) {
             undoColorization();
         }
+    }
+
+    private void showColorPickerDialogDemo() {
+        ColorPickerDialog colorPickerDialog =
+                new ColorPickerDialog(this, -1, this::colorize);
+        colorPickerDialog.show();
+    }
+
+    private void colorize(int color) {
+        undoColorization();
+        int argb = Color.argb(255, Color.blue(color), Color.green(color), Color.red(color));
+        Bitmap bitmap = ((BitmapDrawable) this.imageView.getDrawable()).getBitmap();
+        Bitmap result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        colorize(bitmap, result, argb);
+        this.imageView.setImageBitmap(result);
     }
 
     public void promptSaveBitmap(final Bitmap bitmap) {
@@ -183,6 +203,7 @@ public class ColorizeActivity extends AppCompatActivity implements View.OnClickL
         imageView.setImageBitmap(originalBitmap);
     }
 
+
     public void openColorPickerDialogue() {
         final AmbilWarnaDialog colorPickerDialogue = new AmbilWarnaDialog(this, mDefaultColor,
                 new AmbilWarnaDialog.OnAmbilWarnaListener() {
@@ -203,29 +224,13 @@ public class ColorizeActivity extends AppCompatActivity implements View.OnClickL
 
     private Bitmap colorize(Bitmap bitmap) {
         int w = bitmap.getWidth(), h = bitmap.getHeight();
-        Bitmap bmp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Bitmap newBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 
         float[] hsv = new float[3];
-        Color.colorToHSV(mDefaultColor, hsv);
-        float hue = hsv[0];
-        float saturation = hsv[1];
 
-        for (int y = 0; y < h; y++) {
-            for (int x = 0; x < w; x++) {
-                int pixel = bitmap.getPixel(x, y);
-                int red = Color.red(pixel);
-                int green = Color.green(pixel);
-                int blue = Color.blue(pixel);
-                int gray = (int) (0.299 * red + 0.587 * green + 0.114 * blue);
-                float value = gray / 255f;
-                hsv[0] = hue;
-                hsv[1] = saturation;
-                hsv[2] = value;
-                int colorized = Color.HSVToColor(hsv);
-                bmp.setPixel(x, y, colorized);
-            }
-        }
-        return bmp;
+        colorize(bitmap, newBitmap, mDefaultColor);
+
+        return newBitmap;
     }
 
 

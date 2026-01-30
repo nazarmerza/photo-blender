@@ -4,17 +4,16 @@ plugins {
 
 android {
     namespace = "com.nm.blenderapp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.nm.blenderapp"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -39,6 +38,17 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false // Ensure modern packaging is used
+        }
+    }
+    packaging {
+        resources {
+            excludes += listOf("*.so")
+        }
     }
 }
 
